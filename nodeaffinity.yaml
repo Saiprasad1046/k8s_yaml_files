@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue
+  labels:
+    name: macys
+
+spec:
+
+  replicas: 6
+  selector:
+    matchLabels:
+      name: macys
+
+  template:
+    metadata:
+      name: macys
+      labels:
+       name: macys
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: color
+                    operator: In
+                    values:
+                      - blue
+
+
+
+
+
+
+
+
